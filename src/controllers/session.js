@@ -15,7 +15,7 @@ async function createSession(req, res) {
     if (!checkPassword) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-    const payload = { id: user._id, name: user.name };
+    const payload = { id: user.id, name: user.name };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
     res.cookie('access_token', token, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true });
     res.json({ message: 'token', token });

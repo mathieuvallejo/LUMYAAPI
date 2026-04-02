@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const pool = require('./src/config/database');
 const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
@@ -14,10 +14,12 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-const mongoURI = process.env.MONGO_URI || 'mongodb://admin:lumya_secure_pass@localhost:27017/lumya?authSource=admin';
-
-mongoose.connect(mongoURI)
-  .then(() => console.log('✅ Succès : connectée à MongoDB'))
+// Tester la connexion à MariaDB
+pool.getConnection()
+  .then(connection => {
+    console.log('✅ Succès : connectée à MariaDB');
+    connection.release();
+  })
   .catch(err => console.error('❌ Erreur de connexion DB :', err));
 
 app.use('/api', apiRouter);

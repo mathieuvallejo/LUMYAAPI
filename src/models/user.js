@@ -1,35 +1,53 @@
-const mongoose = require('mongoose');
+const pool = require('../config/database');
 
-const userSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, default: 'user' },
-  createdAt: { type: Date, default: Date.now }
-});
+const User = {
+  selectAll: async function () {
+    const [rows] = await pool.query('SELECT * FROM users');
+    return rows;
+  },
 
-userSchema.statics.selectAll = function () {
-  return this.find();
+  selectById: async function (id) {
+    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+    return rows[0] || null;
+  },
+
+  selectByName: async function (name) {
+    const [rows] = await pool.query('SELECT * FROM users WHERE name = ?', [name]);
+    return rows;
+  },
+
+  insert: async function (data) {
+    const { name, email, password, role = 'user' } = data;
+    const [result] = await pool.query(
+      'INSERT INTO users (name, email, password, role, createdAt) VALUES (?, ?, ?, ?, NOW())',
+      [name, email, password, role]
+    );
+    return { id: result.insertId, name, email, password, role, createdAt: new Date() };
+  },
+
+  update: async function (id, data) {
+    const fields = [];
+    const values = [];
+    
+    Object.keys(data).forEach(key => {
+      if (key !== 'id' && key !== 'createdAt') {
+        fields.push(`${key} = ?`);
+        values.push(data[key]);
+      }
+    });
+    
+    if (fields.length === 0) return this.selectById(id);
+    
+    values.push(id);
+    await pool.query(`UPDATE users SET ${fields.join(', ')} WHERE id = ?`, values);
+    return this.selectById(id);
+  },
+
+  remove: async function (id) {
+    const user = await this.selectById(id);
+    await pool.query('DELETE FROM users WHERE id = ?', [id]);
+    return user;
+  }
 };
 
-userSchema.statics.selectById = function (id) {
-  return this.findById(id).lean();
-};
-
-userSchema.statics.selectByName = function (name) {
-  return this.find({ name }).lean();
-};
-
-userSchema.statics.insert = function (data) {
-  return this.create(data);
-};
-
-userSchema.statics.update = function (id, data) {
-  return this.findByIdAndUpdate(id, data, { new: true }).lean();
-};
-
-userSchema.statics.remove = function (id) {
-  return this.findByIdAndDelete(id).lean();
-};
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = User;

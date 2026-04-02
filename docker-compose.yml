@@ -1,15 +1,22 @@
 services:
-  mongodb:
-    image: mongo:latest
+  mariadb:
+    image: mariadb:latest
     container_name: lumya_db
     restart: always
     ports:
-      - "27017:27017"
+      - "3306:3306"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=lumya_secure_pass
+      - MARIADB_ROOT_PASSWORD=lumya_secure_pass
+      - MARIADB_DATABASE=lumya
+      - MARIADB_USER=lumya_user
+      - MARIADB_PASSWORD=lumya_secure_pass
     volumes:
-      - lumya_data:/data/db
+      - lumya_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   lumya_data:
