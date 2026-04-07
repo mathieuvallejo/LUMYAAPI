@@ -2,28 +2,28 @@ const pool = require('../config/database');
 
 const User = {
   selectAll: async function () {
-    const [rows] = await pool.query('SELECT * FROM users');
+    const [rows] = await pool.query('SELECT * FROM utilisateur');
     return rows;
   },
 
   selectById: async function (id) {
-    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+    const [rows] = await pool.query('SELECT * FROM utilisateur WHERE idUser = ?', [id]);
     return rows[0] || null;
   },
 
   selectByName: async function (name) {
-    const [rows] = await pool.query('SELECT * FROM users WHERE name = ?', [name]);
+    const [rows] = await pool.query('SELECT * FROM utilisateur WHERE name = ?', [name]);
     return rows;
   },
 
-  insert: async function (data) {
-    const { name, email, password, role = 'user' } = data;
-    const [result] = await pool.query(
-      'INSERT INTO users (name, email, password, role, createdAt) VALUES (?, ?, ?, ?, NOW())',
-      [name, email, password, role]
-    );
-    return { id: result.insertId, name, email, password, role, createdAt: new Date() };
-  },
+insert: async function (data) {
+  const { nom, prenom, email, password, date, role = 'user' } = data;
+  const [result] = await pool.query(
+    'INSERT INTO utilisateur (nom, prenom, email, dateNaissance, motDePasseHash, typeRole, dateCreation) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+    [nom, prenom, email, date, password, role]
+  );
+  return { idUser: result.insertId, nom, prenom, email, role, createdAt: new Date() };
+},
 
   update: async function (id, data) {
     const fields = [];
@@ -39,13 +39,13 @@ const User = {
     if (fields.length === 0) return this.selectById(id);
     
     values.push(id);
-    await pool.query(`UPDATE users SET ${fields.join(', ')} WHERE id = ?`, values);
+    await pool.query(`UPDATE utilisateur SET ${fields.join(', ')} WHERE idUser = ?`, values);
     return this.selectById(id);
   },
 
   remove: async function (id) {
     const user = await this.selectById(id);
-    await pool.query('DELETE FROM users WHERE id = ?', [id]);
+    await pool.query('DELETE FROM utilisateur WHERE idUser = ?', [id]);
     return user;
   }
 };

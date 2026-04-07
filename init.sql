@@ -3,8 +3,7 @@ CREATE DATABASE IF NOT EXISTS Lumya;
 USE lumya;
 
 CREATE TABLE utilisateur (
-  PRIMARY KEY (idUser),
-  idUser         INT NOT NULL,
+  idUser         INT NOT NULL AUTO_INCREMENT,
   pseudo         VARCHAR(100),
   email          VARCHAR(150),
   motDePasseHash VARCHAR(255),
@@ -15,12 +14,27 @@ CREATE TABLE utilisateur (
   bio            TEXT,
   pdp            VARCHAR(255),
   dateCreation   DATETIME,
-  suivi          INT
+  suivi          INT,
+  PRIMARY KEY (idUser)
 );
+
+DELIMITER $$
+
+CREATE TRIGGER check_age_utilisateur
+BEFORE INSERT ON utilisateur
+FOR EACH ROW
+BEGIN
+  IF NEW.dateNaissance > DATE_SUB(CURDATE(), INTERVAL 13 YEAR) THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'L\'utilisateur doit avoir au moins 13 ans.';
+  END IF;
+END$$
+
+DELIMITER ;
 
 CREATE TABLE video (
   PRIMARY KEY (idVideo),
-  idVideo          INT NOT NULL,
+  idVideo          INT NOT NULL AUTO_INCREMENT, 
   titre            VARCHAR(255),
   urlVideo         VARCHAR(500),
   datePublication  DATETIME,
@@ -33,7 +47,7 @@ CREATE TABLE video (
 
 CREATE TABLE abonnement (
   PRIMARY KEY (idAbo),
-  idAbo          INT NOT NULL,
+  idAbo          INT NOT NULL AUTO_INCREMENT,
   typeAbo        INT,
   dateDebut      DATETIME,
   dateFin        DATETIME,
@@ -44,7 +58,7 @@ CREATE TABLE abonnement (
 
 CREATE TABLE commentaire (
   PRIMARY KEY (idCommentaire),
-  idCommentaire      INT NOT NULL,
+  idCommentaire      INT NOT NULL AUTO_INCREMENT,
   contenuCommentaire TEXT,
   datePost           DATETIME,
   idVideo            INT,
@@ -55,7 +69,7 @@ CREATE TABLE commentaire (
 
 CREATE TABLE humeur (
   PRIMARY KEY (idHumeur),
-  idHumeur  INT NOT NULL,
+  idHumeur  INT NOT NULL AUTO_INCREMENT,
   dateSuivi DATETIME,
   humeurs   INT,
   idUser    INT,
@@ -64,7 +78,7 @@ CREATE TABLE humeur (
 
 CREATE TABLE `like` (
   PRIMARY KEY (idLike),
-  idLike        INT NOT NULL,
+  idLike        INT NOT NULL AUTO_INCREMENT,
   idUser        INT,
   idVideo       INT,
   idCommentaire INT,
@@ -75,14 +89,14 @@ CREATE TABLE `like` (
 
 CREATE TABLE quiz (
   PRIMARY KEY (idQuiz),
-  idQuiz      INT NOT NULL,
+  idQuiz      INT NOT NULL AUTO_INCREMENT,
   titre       VARCHAR(255),
   description TEXT
 );
 
 CREATE TABLE theme (
   PRIMARY KEY (idTheme),
-  idTheme INT NOT NULL,
+  idTheme INT NOT NULL AUTO_INCREMENT,
   libelle VARCHAR(100)
 );
 
