@@ -10,10 +10,12 @@ const apiRouter = require('./src/routes/api');
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200',
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
-
 // Tester la connexion à MariaDB
 pool.getConnection()
   .then(connection => {
