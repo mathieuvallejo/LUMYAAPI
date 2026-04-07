@@ -6,16 +6,16 @@ const JWT_SECRET = process.env.JWT;
 
 async function createSession(req, res) {
   try {
-    const results = await model.selectByName(req.body.name);
+    const results = await model.selectByEmail(req.body.email);
     const user = results?.[0];
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-    const checkPassword = await bcrypt.compare(req.body.password, user.password);
+    const checkPassword = await bcrypt.compare(req.body.password, user.motDePasseHash);
     if (!checkPassword) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-    const payload = { id: user.id, name: user.name };
+    const payload = { id: user.idUser, name: user.nom };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
     res.cookie('access_token', token, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true });
     res.json({ message: 'token', token });
