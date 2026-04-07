@@ -11,8 +11,8 @@ const User = {
     return rows[0] || null;
   },
 
-  selectByName: async function (name) {
-    const [rows] = await pool.query('SELECT * FROM utilisateur WHERE name = ?', [name]);
+  selectByEmail: async function (name) {
+    const [rows] = await pool.query('SELECT * FROM utilisateur WHERE email = ?', [name]);
     return rows;
   },
 
