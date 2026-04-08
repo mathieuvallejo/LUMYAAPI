@@ -12,7 +12,7 @@ services:
       - MARIADB_PASSWORD=lumya_secure_pass
     volumes:
       - lumya_data:/var/lib/mysql
-      - ./init.sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "sh", "-c", "mariadb-admin ping -S /var/run/mysqld/mysqld.sock || exit 1"]
       interval: 10s
