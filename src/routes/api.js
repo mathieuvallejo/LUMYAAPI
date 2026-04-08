@@ -7,6 +7,7 @@ import likeRouter from './likes.js';
 const { Router } = require('express');
 const userRouter = require('./user');
 const sessionRouter = require('./session');
+const videoRouter=require('./video');
 const docRouter = require('./doc');
 
 const router = Router();
@@ -17,5 +18,6 @@ router.use('/video', videoRouter);
 router.use('/commentaire', commentaireRouter);
 router.use('/likes', likeRouter);
 router.use('/doc', docRouter);
+router.use('/video',videoRouter)
 
 export default router;
