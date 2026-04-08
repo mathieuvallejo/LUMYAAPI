@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import * as commentairesCtrl from '../controllers/commentaire.js';
 import * as middleware from '../middleware/auth.js';
@@ -12,8 +13,5 @@ router.post('/',middleware.authByToken, commentairesCtrl.create);
 router.put('/:id',middleware.authByToken, commentairesCtrl.edit);
 router.delete('/:id',middleware.authByToken, commentairesCtrl.remove);
 
-<<<<<<< HEAD
-module.exports = router;
-=======
 export default router;
->>>>>>> 48b2faf (correction transformation en import from)
+

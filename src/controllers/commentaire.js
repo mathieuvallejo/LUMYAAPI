@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import  model from'../models/commentaire.js';
+=======
+const model = require('../models/commentaire');
+>>>>>>> 154a8d8 (commentaire(controllers,models,toutes))
 
 async function getAll(req, res) {
   try {
@@ -70,4 +74,8 @@ async function remove(req, res) {
   }
 }
 
+<<<<<<< HEAD
 export  { getAll, getOne, getByVideo, getByUser, create, edit, remove };
+=======
+module.exports = { getAll, getOne, getByVideo, getByUser, create, edit, remove };
+>>>>>>> 154a8d8 (commentaire(controllers,models,toutes))
