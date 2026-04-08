@@ -12,5 +12,4 @@ router.use('/video',videoRouter)
 router.use('/commentaire',commentaireRouteur)
 //test
 
-
 module.exports = router;
