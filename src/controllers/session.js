@@ -8,6 +8,7 @@ async function createSession(req, res) {
   try {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 
     const results = await model.selectByEmail(req.body.email);
@@ -17,6 +18,8 @@ async function createSession(req, res) {
     }
     const user = results[0];
 =======
+=======
+>>>>>>> cab05a2 (add video (controller,models,routes))
 
     const results = await model.selectByEmail(req.body.username);
     const user = results?.[0];
