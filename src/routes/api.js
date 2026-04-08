@@ -9,6 +9,7 @@ const userRouter = require('./user');
 const sessionRouter = require('./session');
 const videoRouter=require('./video');
 const docRouter = require('./doc');
+const commentaireRouteur =require('./commentaire')
 
 const router = Router();
 
