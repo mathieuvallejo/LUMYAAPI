@@ -165,7 +165,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserSafe'
+                $ref: '#/components/schemas/User'
         '403':
           description: Token invalide
           content:
@@ -184,7 +184,7 @@ components:
         type: oauth2
         flows:
           password:
-            tokenUrl: 'http://example.com/oauth/token'
+            tokenUrl: 'http://localhost:3000/api/session'
             scopes:
               write: allows modifying resources
               read: allows reading resources
@@ -197,20 +197,20 @@ components:
           example: 1
         pseudo:
           type: string
-          example: "lilia"
+          example: "pseudo"
         nom:
           type: string
-          example: "Dupont"
+          example: "nom"
         prenom:
           type: string
-          example: "Lilia"
+          example: "prenom"
         email:
           type: string
-          example: "lilia@example.com"
+          example: "xxx@example.com"
         dateNaissance:
           type: string
           format: date
-          example: "2000-01-15"
+          example: "XXXX-XX-XX"
         typeRole:
           type: string
           example: "user"
@@ -230,78 +230,25 @@ components:
     CreateUser:
       type: object
       properties:
-        pseudo:
-          type: string
-          example: "lilia"
         nom:
           type: string
-          example: "Dupont"
+          example: "nom"
         prenom:
           type: string
-          example: "Lilia"
+          example: "prenom"
         email:
           type: string
-          example: "lilia@example.com"
+          example: "xxx@example.com"
         password:
           type: string
-          example: "monpassword"
+          example: "******"
         dateNaissance:
           type: string
           format: date
-          example: "2000-01-15"
-        typeRole:
-          type: string
-          example: "user"
-        bio:
-          type: string
-          example: "Ma bio"
-        pdp:
-          type: string
-          example: "https://example.com/avatar.jpg"
-        suivi:
-          type: integer
-          example: 0
+          example: "XXXX-XX-XX"
       required:
         - email
         - password
-    UserSafe:
-      type: object
-      properties:
-        idUser:
-          type: integer
-          example: 1
-        pseudo:
-          type: string
-          example: "lilia"
-        nom:
-          type: string
-          example: "Dupont"
-        prenom:
-          type: string
-          example: "Lilia"
-        email:
-          type: string
-          example: "lilia@example.com"
-        dateNaissance:
-          type: string
-          format: date
-          example: "2000-01-15"
-        typeRole:
-          type: string
-          example: "user"
-        bio:
-          type: string
-          example: "Ma bio"
-        pdp:
-          type: string
-          example: "https://example.com/avatar.jpg"
-        dateCreation:
-          type: string
-          format: date-time
-          example: "2024-04-07T15:30:00Z"
-        suivi:
-          type: integer
-          example: 0
     Session:
       type: object
       properties:

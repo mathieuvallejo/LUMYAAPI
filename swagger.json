@@ -216,7 +216,11 @@
             "content": {
               "application/json": {
                 "schema": {
+<<<<<<< HEAD
                   "$ref": "#/components/schemas/User"
+=======
+                  "$ref": "#/components/schemas/UserSafe"
+>>>>>>> 8fc078e (installation de swagger-ui-express)
                 }
               }
             }
@@ -351,6 +355,7 @@
         ],
         "type": "object",
         "properties": {
+<<<<<<< HEAD
           "nom": {
             "type": "string",
             "example": "nom"
@@ -370,12 +375,106 @@
           "dateNaissance": {
             "type": "string",
             "format": "date"
+=======
+          "pseudo": {
+            "type": "string",
+            "example": "lilia"
+          },
+          "nom": {
+            "type": "string",
+            "example": "Dupont"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Lilia"
+          },
+          "email": {
+            "type": "string",
+            "example": "lilia@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "monpassword"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "format": "date",
+            "example": "2000-01-15"
+          },
+          "typeRole": {
+            "type": "string",
+            "example": "user"
+          },
+          "bio": {
+            "type": "string",
+            "example": "Ma bio"
+          },
+          "pdp": {
+            "type": "string",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "suivi": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "UserSafe": {
+        "type": "object",
+        "properties": {
+          "idUser": {
+            "type": "integer",
+            "example": 1
+          },
+          "pseudo": {
+            "type": "string",
+            "example": "lilia"
+          },
+          "nom": {
+            "type": "string",
+            "example": "Dupont"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Lilia"
+          },
+          "email": {
+            "type": "string",
+            "example": "lilia@example.com"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "format": "date",
+            "example": "2000-01-15"
+          },
+          "typeRole": {
+            "type": "string",
+            "example": "user"
+          },
+          "bio": {
+            "type": "string",
+            "example": "Ma bio"
+          },
+          "pdp": {
+            "type": "string",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "dateCreation": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-07T15:30:00Z"
+          },
+          "suivi": {
+            "type": "integer",
+            "example": 0
+>>>>>>> 8fc078e (installation de swagger-ui-express)
           }
         }
       },
       "Session": {
         "required": [
           "password",
+<<<<<<< HEAD
           "email"
         ],
         "type": "object",
@@ -383,6 +482,15 @@
           "email": {
             "type": "string",
             "example": "lilia@example.com"
+=======
+          "pseudo"
+        ],
+        "type": "object",
+        "properties": {
+          "pseudo": {
+            "type": "string",
+            "example": "lilia"
+>>>>>>> 8fc078e (installation de swagger-ui-express)
           },
           "password": {
             "type": "string",
@@ -411,11 +519,14 @@
       }
     },
     "securitySchemes": {
+<<<<<<< HEAD
       "cookieAuth": {
         "type": "apiKey",
         "name": "access_token",
         "in": "cookie"
       },
+=======
+>>>>>>> 8fc078e (installation de swagger-ui-express)
       "password": {
         "type": "oauth2",
         "flows": {
