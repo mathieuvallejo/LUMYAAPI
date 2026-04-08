@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import * as model from'../models/commentaire.js';
-=======
 const model = require('../models/commentaire');
->>>>>>> 154a8d8 (commentaire(controllers,models,toutes))
 
 async function getAll(req, res) {
   try {

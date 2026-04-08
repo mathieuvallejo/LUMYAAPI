@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import pool from'../config/database.js';
-=======
 const pool = require('../config/database');
->>>>>>> 154a8d8 (commentaire(controllers,models,toutes))
 
 const Commentaire = {
   selectAll: async function () {
