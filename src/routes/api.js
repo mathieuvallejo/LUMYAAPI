@@ -10,5 +10,6 @@ router.use('/session', sessionRouter);
 router.use('/doc', docRouter);
 router.use('/video',videoRouter)
 router.use('/commentaire',commentaireRouteur)
+//test
 
 module.exports = router;
