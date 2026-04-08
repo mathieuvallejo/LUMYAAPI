@@ -76,12 +76,12 @@ CREATE TABLE humeur (
   FOREIGN KEY (idUser) REFERENCES utilisateur(idUser)
 );
 
-CREATE TABLE `like` (
-  PRIMARY KEY (idLike),
+CREATE TABLE likes (
   idLike        INT NOT NULL AUTO_INCREMENT,
   idUser        INT,
   idVideo       INT,
   idCommentaire INT,
+  PRIMARY KEY (idLike),
   FOREIGN KEY (idUser)        REFERENCES utilisateur(idUser),
   FOREIGN KEY (idVideo)       REFERENCES video(idVideo),
   FOREIGN KEY (idCommentaire) REFERENCES commentaire(idCommentaire)
