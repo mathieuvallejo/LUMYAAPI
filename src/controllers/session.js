@@ -9,6 +9,7 @@ async function createSession(req, res) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 
     const results = await model.selectByEmail(req.body.email);
@@ -28,11 +29,19 @@ async function createSession(req, res) {
     
 
     const results = await model.selectByEmail(req.body.username);
+=======
+    
+
+    const results = await model.selectByEmail(req.body.username);
+>>>>>>> a13ebb2 (correction session.js changement email en username)
     console.log(results)
     if (!results) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     const user = results[0];
+<<<<<<< HEAD
+>>>>>>> a13ebb2 (correction session.js changement email en username)
+=======
 >>>>>>> a13ebb2 (correction session.js changement email en username)
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
