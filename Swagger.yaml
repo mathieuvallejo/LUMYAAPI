@@ -1,5 +1,9 @@
 openapi: 3.0.0
 servers:
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/lumya/Lumya/1.0.0
   - description: Api Lumya Project
     url: http://localhost:3000/api/
 info:
@@ -8,7 +12,9 @@ info:
   description: >-
     Documentation API Lumya
 security:
-  - bearerAuth: []
+  - password:
+      - read
+      - write
 paths:
   /users:
     get:
@@ -174,65 +180,139 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      password:
+        type: oauth2
+        flows:
+          password:
+            tokenUrl: 'http://example.com/oauth/token'
+            scopes:
+              write: allows modifying resources
+              read: allows reading resources
   schemas:
     User:
       type: object
       properties:
-        id:
+        idUser:
           type: integer
-        name:
+          example: 1
+        pseudo:
           type: string
+          example: "lilia"
+        nom:
+          type: string
+          example: "Dupont"
+        prenom:
+          type: string
+          example: "Lilia"
         email:
           type: string
-        role:
+          example: "lilia@example.com"
+        dateNaissance:
           type: string
-          default: user
-        createdAt:
+          format: date
+          example: "2000-01-15"
+        typeRole:
+          type: string
+          example: "user"
+        bio:
+          type: string
+          example: "Ma bio"
+        pdp:
+          type: string
+          example: "https://example.com/avatar.jpg"
+        dateCreation:
           type: string
           format: date-time
+          example: "2024-04-07T15:30:00Z"
+        suivi:
+          type: integer
+          example: 0
     CreateUser:
       type: object
       properties:
-        name:
+        pseudo:
           type: string
+          example: "lilia"
+        nom:
+          type: string
+          example: "Dupont"
+        prenom:
+          type: string
+          example: "Lilia"
         email:
           type: string
+          example: "lilia@example.com"
         password:
           type: string
-        role:
+          example: "monpassword"
+        dateNaissance:
           type: string
-          default: user
+          format: date
+          example: "2000-01-15"
+        typeRole:
+          type: string
+          example: "user"
+        bio:
+          type: string
+          example: "Ma bio"
+        pdp:
+          type: string
+          example: "https://example.com/avatar.jpg"
+        suivi:
+          type: integer
+          example: 0
       required:
-        - name
         - email
         - password
     UserSafe:
       type: object
       properties:
-        id:
+        idUser:
           type: integer
-        name:
+          example: 1
+        pseudo:
           type: string
+          example: "lilia"
+        nom:
+          type: string
+          example: "Dupont"
+        prenom:
+          type: string
+          example: "Lilia"
         email:
           type: string
-        role:
+          example: "lilia@example.com"
+        dateNaissance:
           type: string
-        createdAt:
+          format: date
+          example: "2000-01-15"
+        typeRole:
+          type: string
+          example: "user"
+        bio:
+          type: string
+          example: "Ma bio"
+        pdp:
+          type: string
+          example: "https://example.com/avatar.jpg"
+        dateCreation:
           type: string
           format: date-time
+          example: "2024-04-07T15:30:00Z"
+        suivi:
+          type: integer
+          example: 0
     Session:
       type: object
       properties:
-        name:
+        pseudo:
           type: string
+          example: "lilia"
         password:
           type: string
+          example: "monpassword"
       required:
-        - name
+        - pseudo
         - password
     LoginResponse:
       type: object
