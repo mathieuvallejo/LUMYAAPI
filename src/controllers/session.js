@@ -6,9 +6,14 @@ const JWT_SECRET = process.env.JWT;
 
 async function createSession(req, res) {
   try {
+    
 
     const results = await model.selectByEmail(req.body.username);
-    const user = results?.[0];
+    console.log(results)
+    if (!results) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    const user = results[0];
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
