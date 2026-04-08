@@ -1,0 +1,498 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Api Lumya Project",
+    "description": "Documentation API Lumya",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/lumya/Lumya/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "http://localhost:3000/api/",
+      "description": "Api Lumya Project"
+    }
+  ],
+  "security": [
+    {
+      "password": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Récupérer tous les utilisateurs",
+        "description": "Récupère la liste de tous les utilisateurs",
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouvel utilisateur",
+        "description": "Crée un nouvel utilisateur avec les données fournies",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Utilisateur créé avec succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Récupérer un utilisateur par ID",
+        "description": "Récupère un seul utilisateur par son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un utilisateur",
+        "description": "Met à jour un utilisateur existant par son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur mis à jour avec succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un utilisateur",
+        "description": "Supprime un utilisateur par son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Utilisateur supprimé avec succès"
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/session": {
+      "get": {
+        "summary": "Récupérer la session actuelle",
+        "description": "Récupère les informations de session de l'utilisateur actuel",
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSafe"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Token invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer une session",
+        "description": "Authentifie un utilisateur et crée une session",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Session"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Authentification réussie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Identifiants invalides",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "idUser": {
+            "type": "integer",
+            "example": 1
+          },
+          "pseudo": {
+            "type": "string",
+            "example": "pseudo"
+          },
+          "nom": {
+            "type": "string",
+            "example": "nom"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "prenom"
+          },
+          "email": {
+            "type": "string",
+            "example": "xxx@example.com"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "format": "date"
+          },
+          "typeRole": {
+            "type": "string",
+            "example": "user"
+          },
+          "bio": {
+            "type": "string",
+            "example": "Ma bio"
+          },
+          "pdp": {
+            "type": "string",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "dateCreation": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-07T15:30:00Z"
+          },
+          "suivi": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "CreateUser": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "pseudo": {
+            "type": "string",
+            "example": "lilia"
+          },
+          "nom": {
+            "type": "string",
+            "example": "Dupont"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Lilia"
+          },
+          "email": {
+            "type": "string",
+            "example": "lilia@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "monpassword"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "format": "date",
+            "example": "2000-01-15"
+          },
+          "typeRole": {
+            "type": "string",
+            "example": "user"
+          },
+          "bio": {
+            "type": "string",
+            "example": "Ma bio"
+          },
+          "pdp": {
+            "type": "string",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "suivi": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "UserSafe": {
+        "type": "object",
+        "properties": {
+          "idUser": {
+            "type": "integer",
+            "example": 1
+          },
+          "pseudo": {
+            "type": "string",
+            "example": "lilia"
+          },
+          "nom": {
+            "type": "string",
+            "example": "Dupont"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Lilia"
+          },
+          "email": {
+            "type": "string",
+            "example": "lilia@example.com"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "format": "date",
+            "example": "2000-01-15"
+          },
+          "typeRole": {
+            "type": "string",
+            "example": "user"
+          },
+          "bio": {
+            "type": "string",
+            "example": "Ma bio"
+          },
+          "pdp": {
+            "type": "string",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "dateCreation": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-07T15:30:00Z"
+          },
+          "suivi": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "Session": {
+        "required": [
+          "password",
+          "pseudo"
+        ],
+        "type": "object",
+        "properties": {
+          "pseudo": {
+            "type": "string",
+            "example": "lilia"
+          },
+          "password": {
+            "type": "string",
+            "example": "monpassword"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "password": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "tokenUrl": "http://localhost:3000/api/session",
+            "scopes": {
+              "write": "allows modifying resources",
+              "read": "allows reading resources"
+            }
+          }
+        }
+      }
+    }
+  }
+}
