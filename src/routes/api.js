@@ -19,5 +19,6 @@ router.use('/commentaire', commentaireRouter);
 router.use('/likes', likeRouter);
 router.use('/doc', docRouter);
 router.use('/video',videoRouter)
+router.use('/commentaire',commentaireRouteur)
 
 export default router;
