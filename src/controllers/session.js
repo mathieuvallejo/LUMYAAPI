@@ -7,6 +7,7 @@ const JWT_SECRET = process.env.JWT;
 async function createSession(req, res) {
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 
     const results = await model.selectByEmail(req.body.username);
@@ -20,6 +21,16 @@ async function createSession(req, res) {
     const results = await model.selectByEmail(req.body.username);
     const user = results?.[0];
 >>>>>>> cab05a2 (add video (controller,models,routes))
+=======
+    
+
+    const results = await model.selectByEmail(req.body.username);
+    console.log(results)
+    if (!results) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    const user = results[0];
+>>>>>>> a13ebb2 (correction session.js changement email en username)
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
