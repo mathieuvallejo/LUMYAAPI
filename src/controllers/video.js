@@ -70,4 +70,8 @@ async function addView(req, res) {
   }
 }
 
+<<<<<<< HEAD
 export { getAll, getOne, getByUser, create, edit, remove, addView };
+=======
+module.exports = { getAll, getOne, getByUser, create, edit, remove, addView };
+>>>>>>> e726143 (add video (controller,models,routes))
