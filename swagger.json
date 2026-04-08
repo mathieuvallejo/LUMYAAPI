@@ -382,19 +382,19 @@
           },
           "nom": {
             "type": "string",
-            "example": "Dupont"
+            "example": "nom"
           },
           "prenom": {
             "type": "string",
-            "example": "Lilia"
+            "example": "prenom"
           },
           "email": {
             "type": "string",
-            "example": "lilia@example.com"
+            "example": "xxx@example.com"
           },
           "password": {
             "type": "string",
-            "example": "monpassword"
+            "example": "******"
           },
           "dateNaissance": {
             "type": "string",
@@ -487,7 +487,7 @@
         ],
         "type": "object",
         "properties": {
-          "pseudo": {
+          "email": {
             "type": "string",
             "example": "lilia"
 >>>>>>> 8fc078e (installation de swagger-ui-express)
