@@ -22,7 +22,7 @@ insert: async function (data) {
     'INSERT INTO utilisateur (nom, prenom, email, dateNaissance, motDePasseHash, typeRole, dateCreation) VALUES (?, ?, ?, ?, ?, ?, NOW())',
     [nom, prenom, email, date, password, role]
   );
-  return { idUser: result.insertId, nom, prenom, email, role, createdAt: new Date() };
+  return { idUser: result.insertId, nom, prenom, email, date, role, createdAt: new Date() };
 },
 
   update: async function (id, data) {
