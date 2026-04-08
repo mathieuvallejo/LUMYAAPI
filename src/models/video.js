@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import pool from '../config/database.js';
+=======
+const pool = require('../config/database');
+>>>>>>> e726143 (add video (controller,models,routes))
 
 const Video = {
   selectAll: async function () {
@@ -55,4 +59,8 @@ const Video = {
   }
 };
 
+<<<<<<< HEAD
 export default Video;
+=======
+module.exports = Video;
+>>>>>>> e726143 (add video (controller,models,routes))

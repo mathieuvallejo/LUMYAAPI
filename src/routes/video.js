@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Router } from 'express';
 import * as videosCtrl from '../controllers/video.js';
 import * as middleware from '../middleware/auth.js';
@@ -13,3 +14,19 @@ router.delete('/:id',middleware.authByToken, videosCtrl.remove);
 router.patch('/:id/views',middleware.authByToken, videosCtrl.addView);
 
 export default router;
+=======
+const { Router } = require('express');
+const videosCtrl = require('../controllers/video');
+
+const router = Router();
+
+router.get('/', videosCtrl.getAll);
+router.get('/:id', videosCtrl.getOne);
+router.get('/user/:idUser', videosCtrl.getByUser);
+router.post('/', videosCtrl.create);
+router.put('/:id', videosCtrl.edit);
+router.delete('/:id', videosCtrl.remove);
+router.patch('/:id/views', videosCtrl.addView);
+
+module.exports = router;
+>>>>>>> e726143 (add video (controller,models,routes))
