@@ -1,10 +1,10 @@
-const { Router } = require('express');
-const middleware = require('../middleware/auth');
-const sessionController = require('../controllers/session');
+import { Router } from 'express';
+import * as middleware from '../middleware/auth.js';
+import * as sessionController from '../controllers/session.js';
 
 const router = Router();
 
 router.get('/', middleware.authByToken, sessionController.getSession);
 router.post('/', sessionController.createSession);
 
-module.exports = router;
+export default router;

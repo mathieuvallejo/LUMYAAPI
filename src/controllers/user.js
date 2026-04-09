@@ -1,5 +1,5 @@
-const model = require('../models/user');
-const bcrypt = require('bcrypt');
+import * as  model  from '../models/user.js';
+import bcrypt from'bcrypt';
 
 const saltRounds = 12;
 
@@ -59,4 +59,4 @@ async function remove(req, res) {
   }
 }
 
-module.exports = { getAll, getOne, create, edit, remove };
+export { getAll, getOne, create, edit, remove };

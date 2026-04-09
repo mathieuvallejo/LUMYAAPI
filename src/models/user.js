@@ -1,4 +1,4 @@
-const pool = require('../config/database');
+import pool from'../config/database.js';
 
 const User = {
   selectAll: async function () {
@@ -50,4 +50,4 @@ insert: async function (data) {
   }
 };
 
-module.exports = User;
+export default User;
