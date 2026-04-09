@@ -8,7 +8,7 @@ async function createSession(req, res) {
   try {
     
 
-    const results = await model.selectByEmail(req.body.username);
+    const results = await model.selectByEmail(req.body.email);
     console.log(results)
     if (!results) {
       return res.status(401).json({ error: 'Invalid credentials' });
