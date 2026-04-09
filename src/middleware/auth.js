@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const model = require('../models/user');
+import jwt from'jsonwebtoken';
+import * as model from'../models/user.js';
 
 const JWT_SECRET = process.env.JWT;
 
@@ -21,4 +21,4 @@ async function authByToken(req, res, next) {
   }
 }
 
-module.exports = { authByToken };
+export { authByToken };

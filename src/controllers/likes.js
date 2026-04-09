@@ -1,4 +1,4 @@
-import * as model from'../models/commentaire.js';
+import * as model from'../models/likes.js';
 
 async function getAll(req, res) {
   try {
@@ -19,6 +19,16 @@ async function getOne(req, res) {
   }
 }
 
+async function getByUser(req, res) {
+  try {
+    const idUser = req.params.idUser;
+    const result = await model.selectByUser(idUser);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 async function getByVideo(req, res) {
   try {
     const idVideo = req.params.idVideo;
@@ -29,10 +39,10 @@ async function getByVideo(req, res) {
   }
 }
 
-async function getByUser(req, res) {
+async function getByCommentaire(req, res) {
   try {
-    const idUser = req.params.idUser;
-    const result = await model.selectByUser(idUser);
+    const idCommentaire = req.params.idCommentaire;
+    const result = await model.selectByCommentaire(idCommentaire);
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -49,17 +59,6 @@ async function create(req, res) {
   }
 }
 
-async function edit(req, res) {
-  try {
-    const id = req.params.id;
-    const data = req.body;
-    const result = await model.update(id, data);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
-
 async function remove(req, res) {
   try {
     const id = req.params.id;
@@ -70,4 +69,24 @@ async function remove(req, res) {
   }
 }
 
-export  { getAll, getOne, getByVideo, getByUser, create, edit, remove };
+async function unlikeVideo(req, res) {
+  try {
+    const { idUser, idVideo } = req.body;
+    await model.removeByUserAndVideo(idUser, idVideo);
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function unlikeCommentaire(req, res) {
+  try {
+    const { idUser, idCommentaire } = req.body;
+    await model.removeByUserAndCommentaire(idUser, idCommentaire);
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export  { getAll, getOne, getByUser, getByVideo, getByCommentaire, create, remove, unlikeVideo, unlikeCommentaire };

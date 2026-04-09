@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const model = require('../models/user');
-const bcrypt = require('bcrypt');
+import jwt from 'jsonwebtoken';
+import * as model from '../models/user.js';
+import bcrypt from 'bcrypt';
 
 const JWT_SECRET = process.env.JWT;
 
@@ -38,4 +38,4 @@ function getSession(req, res) {
   res.json(userSafe);
 }
 
-module.exports = { createSession, getSession };
+export { createSession, getSession };

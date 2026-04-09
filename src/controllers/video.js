@@ -1,4 +1,4 @@
-const model = require('../models/video');
+import * as model  from '../models/video.js';
 
 async function getAll(req, res) {
   try {
@@ -70,4 +70,4 @@ async function addView(req, res) {
   }
 }
 
-module.exports = { getAll, getOne, getByUser, create, edit, remove, addView };
+export { getAll, getOne, getByUser, create, edit, remove, addView };
