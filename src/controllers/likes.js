@@ -1,4 +1,4 @@
-import * as model from'../models/likes.js';
+import  model from'../models/likes.js';
 
 async function getAll(req, res) {
   try {

@@ -1,4 +1,4 @@
-import * as model from'../models/commentaire.js';
+import  model from'../models/commentaire.js';
 
 async function getAll(req, res) {
   try {
