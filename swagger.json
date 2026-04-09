@@ -217,10 +217,14 @@
               "application/json": {
                 "schema": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "$ref": "#/components/schemas/User"
 =======
                   "$ref": "#/components/schemas/UserSafe"
 >>>>>>> 8fc078e (installation de swagger-ui-express)
+=======
+                  "$ref": "#/components/schemas/User"
+>>>>>>> b9d5935 (changement du swagger)
                 }
               }
             }
@@ -356,6 +360,7 @@
         "type": "object",
         "properties": {
 <<<<<<< HEAD
+<<<<<<< HEAD
           "nom": {
             "type": "string",
             "example": "nom"
@@ -380,6 +385,8 @@
             "type": "string",
             "example": "lilia"
           },
+=======
+>>>>>>> b9d5935 (changement du swagger)
           "nom": {
             "type": "string",
             "example": "nom"
@@ -398,6 +405,7 @@
           },
           "dateNaissance": {
             "type": "string",
+<<<<<<< HEAD
             "format": "date",
             "example": "2000-01-15"
           },
@@ -468,6 +476,9 @@
             "type": "integer",
             "example": 0
 >>>>>>> 8fc078e (installation de swagger-ui-express)
+=======
+            "format": "date"
+>>>>>>> b9d5935 (changement du swagger)
           }
         }
       },
@@ -520,13 +531,19 @@
     },
     "securitySchemes": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b9d5935 (changement du swagger)
       "cookieAuth": {
         "type": "apiKey",
         "name": "access_token",
         "in": "cookie"
       },
+<<<<<<< HEAD
 =======
 >>>>>>> 8fc078e (installation de swagger-ui-express)
+=======
+>>>>>>> b9d5935 (changement du swagger)
       "password": {
         "type": "oauth2",
         "flows": {
