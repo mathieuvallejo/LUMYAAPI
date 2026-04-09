@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import * as model  from '../models/video.js';
-=======
-const model = require('../models/video');
->>>>>>> e726143 (add video (controller,models,routes))
 
 async function getAll(req, res) {
   try {
@@ -74,8 +70,4 @@ async function addView(req, res) {
   }
 }
 
-<<<<<<< HEAD
 export { getAll, getOne, getByUser, create, edit, remove, addView };
-=======
-module.exports = { getAll, getOne, getByUser, create, edit, remove, addView };
->>>>>>> e726143 (add video (controller,models,routes))

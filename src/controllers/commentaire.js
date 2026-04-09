@@ -1,4 +1,4 @@
-const model = require('../models/commentaire');
+import * as model from'../models/commentaire.js';
 
 async function getAll(req, res) {
   try {
@@ -70,8 +70,4 @@ async function remove(req, res) {
   }
 }
 
-<<<<<<< HEAD
 export  { getAll, getOne, getByVideo, getByUser, create, edit, remove };
-=======
-module.exports = { getAll, getOne, getByVideo, getByUser, create, edit, remove };
->>>>>>> 154a8d8 (commentaire(controllers,models,toutes))

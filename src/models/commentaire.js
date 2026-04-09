@@ -1,4 +1,4 @@
-const pool = require('../config/database');
+import pool from'../config/database.js';
 
 const Commentaire = {
   selectAll: async function () {
@@ -56,7 +56,11 @@ const Commentaire = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default Commentaire;
 =======
 module.exports = Commentaire;
 >>>>>>> 154a8d8 (commentaire(controllers,models,toutes))
+=======
+export default Commentaire;
+>>>>>>> 48b2faf (correction transformation en import from)
