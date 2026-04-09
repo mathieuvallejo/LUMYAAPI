@@ -71,7 +71,11 @@ async function addView(req, res) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { getAll, getOne, getByUser, create, edit, remove, addView };
 =======
 module.exports = { getAll, getOne, getByUser, create, edit, remove, addView };
 >>>>>>> e726143 (add video (controller,models,routes))
+=======
+export { getAll, getOne, getByUser, create, edit, remove, addView };
+>>>>>>> 48b2faf (correction transformation en import from)

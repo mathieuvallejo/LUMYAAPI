@@ -1,5 +1,9 @@
 import jwt from 'jsonwebtoken';
+<<<<<<< HEAD
 import  model from '../models/user.js';
+=======
+import * as model from '../models/user.js';
+>>>>>>> 48b2faf (correction transformation en import from)
 import bcrypt from 'bcrypt';
 
 const JWT_SECRET = process.env.JWT;

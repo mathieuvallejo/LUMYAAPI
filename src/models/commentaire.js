@@ -58,6 +58,7 @@ const Commentaire = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default Commentaire;
 =======
 module.exports = Commentaire;
@@ -68,3 +69,6 @@ export default Commentaire;
 =======
 module.exports = Commentaire;
 >>>>>>> 154a8d8 (commentaire(controllers,models,toutes))
+=======
+export default Commentaire;
+>>>>>>> 48b2faf (correction transformation en import from)
