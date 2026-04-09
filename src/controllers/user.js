@@ -1,4 +1,4 @@
-import * as  model  from '../models/user.js';
+import   model  from '../models/user.js';
 import bcrypt from'bcrypt';
 
 const saltRounds = 12;

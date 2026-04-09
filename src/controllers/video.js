@@ -1,4 +1,4 @@
-import * as model  from '../models/video.js';
+import  model  from '../models/video.js';
 
 async function getAll(req, res) {
   try {
