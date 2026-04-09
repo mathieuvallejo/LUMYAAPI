@@ -1,4 +1,3 @@
-
 import  model from'../models/commentaire.js';
 
 async function getAll(req, res) {
