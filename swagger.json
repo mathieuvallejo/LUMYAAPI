@@ -7,10 +7,6 @@
   },
   "servers": [
     {
-      "url": "https://virtserver.swaggerhub.com/lumya/Lumya/1.0.0",
-      "description": "SwaggerHub API Auto Mocking"
-    },
-    {
       "url": "http://localhost:3000/api/",
       "description": "Api Lumya Project"
     }
@@ -263,6 +259,14 @@
         "responses": {
           "200": {
             "description": "Authentification réussie",
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "access_token=ABCD1234; Path=/; HttpOnly"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
