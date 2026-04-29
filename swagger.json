@@ -13,21 +13,16 @@
   ],
   "security": [
     {
-      "cookieAuth": [
-        "read",
-        "write"
-      ]
+      "bearerAuth": []
     },
     {
-      "password": [
-        "read",
-        "write"
-      ]
+      "cookieAuth": []
     }
   ],
   "paths": {
     "/users": {
       "get": {
+        "tags": ["Utilisateurs"],
         "summary": "Récupérer tous les utilisateurs",
         "description": "Récupère la liste de tous les utilisateurs",
         "responses": {
@@ -35,235 +30,128 @@
             "description": "Réponse réussie",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/User" } }
               }
             }
           },
-          "500": {
-            "description": "Erreur interne du serveur",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "post": {
+        "tags": ["Utilisateurs"],
         "summary": "Créer un nouvel utilisateur",
-        "description": "Crée un nouvel utilisateur avec les données fournies",
+        "security": [],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUser"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateUser" }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "201": {
             "description": "Utilisateur créé avec succès",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
+                "schema": { "$ref": "#/components/schemas/User" }
               }
             }
           },
-          "500": {
-            "description": "Erreur interne du serveur",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
     "/users/{id}": {
       "get": {
+        "tags": ["Utilisateurs"],
         "summary": "Récupérer un utilisateur par ID",
-        "description": "Récupère un seul utilisateur par son ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
         "responses": {
           "200": {
             "description": "Réponse réussie",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
+                "schema": { "$ref": "#/components/schemas/User" }
               }
             }
           },
-          "500": {
-            "description": "Erreur interne du serveur",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "put": {
+        "tags": ["Utilisateurs"],
         "summary": "Mettre à jour un utilisateur",
-        "description": "Met à jour un utilisateur existant par son ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUser"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateUser" }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
             "description": "Utilisateur mis à jour avec succès",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
+                "schema": { "$ref": "#/components/schemas/User" }
               }
             }
           },
-          "500": {
-            "description": "Erreur interne du serveur",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "delete": {
+        "tags": ["Utilisateurs"],
         "summary": "Supprimer un utilisateur",
-        "description": "Supprime un utilisateur par son ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
         "responses": {
-          "204": {
-            "description": "Utilisateur supprimé avec succès"
-          },
-          "500": {
-            "description": "Erreur interne du serveur",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+          "204": { "description": "Utilisateur supprimé avec succès" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
     "/session": {
       "get": {
+        "tags": ["Session"],
         "summary": "Récupérer la session actuelle",
-        "description": "Récupère les informations de session de l'utilisateur actuel",
         "responses": {
           "200": {
             "description": "Réponse réussie",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
+                "schema": { "$ref": "#/components/schemas/User" }
               }
             }
           },
-          "403": {
-            "description": "Token invalide",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Erreur interne du serveur",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "post": {
-        "summary": "Créer une session",
-        "description": "Authentifie un utilisateur et crée une session",
+        "tags": ["Session"],
+        "summary": "Créer une session (login)",
+        "security": [],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Session"
-              }
+              "schema": { "$ref": "#/components/schemas/Session" }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
             "description": "Authentification réussie",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/LoginResponse" }
               }
             }
           },
@@ -271,162 +159,744 @@
             "description": "Identifiants invalides",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           },
-          "500": {
-            "description": "Erreur interne du serveur",
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "delete": {
+        "tags": ["Session"],
+        "summary": "Supprimer la session (logout)",
+        "responses": {
+          "204": { "description": "Déconnexion réussie" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/video": {
+      "get": {
+        "tags": ["Vidéos"],
+        "summary": "Récupérer toutes les vidéos",
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Video" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "post": {
+        "tags": ["Vidéos"],
+        "summary": "Créer une vidéo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateVideo" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Vidéo créée avec succès",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Video" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/video/{id}": {
+      "get": {
+        "tags": ["Vidéos"],
+        "summary": "Récupérer une vidéo par ID",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Video" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "put": {
+        "tags": ["Vidéos"],
+        "summary": "Mettre à jour une vidéo",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateVideo" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Vidéo mise à jour",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Video" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "delete": {
+        "tags": ["Vidéos"],
+        "summary": "Supprimer une vidéo",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "responses": {
+          "204": { "description": "Vidéo supprimée" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/video/user/{idUser}": {
+      "get": {
+        "tags": ["Vidéos"],
+        "summary": "Récupérer les vidéos d'un utilisateur",
+        "parameters": [{ "$ref": "#/components/parameters/IdUserPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Video" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/video/{id}/views": {
+      "patch": {
+        "tags": ["Vidéos"],
+        "summary": "Incrémenter le nombre de vues d'une vidéo",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "responses": {
+          "200": {
+            "description": "Vues mises à jour",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Video" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/commentaire": {
+      "get": {
+        "tags": ["Commentaires"],
+        "summary": "Récupérer tous les commentaires",
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Commentaire" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "post": {
+        "tags": ["Commentaires"],
+        "summary": "Créer un commentaire",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateCommentaire" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Commentaire créé",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Commentaire" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/commentaire/{id}": {
+      "get": {
+        "tags": ["Commentaires"],
+        "summary": "Récupérer un commentaire par ID",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Commentaire" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "put": {
+        "tags": ["Commentaires"],
+        "summary": "Mettre à jour un commentaire",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateCommentaire" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Commentaire mis à jour",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Commentaire" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "delete": {
+        "tags": ["Commentaires"],
+        "summary": "Supprimer un commentaire",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "responses": {
+          "204": { "description": "Commentaire supprimé" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/commentaire/video/{idVideo}": {
+      "get": {
+        "tags": ["Commentaires"],
+        "summary": "Récupérer les commentaires d'une vidéo",
+        "parameters": [{ "$ref": "#/components/parameters/IdVideoPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Commentaire" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/commentaire/user/{idUser}": {
+      "get": {
+        "tags": ["Commentaires"],
+        "summary": "Récupérer les commentaires d'un utilisateur",
+        "parameters": [{ "$ref": "#/components/parameters/IdUserPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Commentaire" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/likes": {
+      "get": {
+        "tags": ["Likes"],
+        "summary": "Récupérer tous les likes",
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Like" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "post": {
+        "tags": ["Likes"],
+        "summary": "Ajouter un like",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateLike" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Like ajouté",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Like" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/likes/{id}": {
+      "get": {
+        "tags": ["Likes"],
+        "summary": "Récupérer un like par ID",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Like" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "delete": {
+        "tags": ["Likes"],
+        "summary": "Supprimer un like par ID",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "responses": {
+          "204": { "description": "Like supprimé" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/likes/video/{idVideo}": {
+      "get": {
+        "tags": ["Likes"],
+        "summary": "Récupérer les likes d'une vidéo",
+        "parameters": [{ "$ref": "#/components/parameters/IdVideoPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Like" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/likes/user/{idUser}": {
+      "get": {
+        "tags": ["Likes"],
+        "summary": "Récupérer les likes d'un utilisateur",
+        "parameters": [{ "$ref": "#/components/parameters/IdUserPath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Like" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/likes/commentaire/{idCommentaire}": {
+      "get": {
+        "tags": ["Likes"],
+        "summary": "Récupérer les likes d'un commentaire",
+        "parameters": [{ "$ref": "#/components/parameters/IdCommentairePath" }],
+        "responses": {
+          "200": {
+            "description": "Réponse réussie",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Like" } }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/likes/video": {
+      "delete": {
+        "tags": ["Likes"],
+        "summary": "Retirer un like d'une vidéo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["idUser", "idVideo"],
+                "properties": {
+                  "idUser": { "type": "integer", "example": 1 },
+                  "idVideo": { "type": "integer", "example": 5 }
                 }
               }
             }
           }
         },
-        "security": []
+        "responses": {
+          "204": { "description": "Like retiré" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/likes/commentaire": {
+      "delete": {
+        "tags": ["Likes"],
+        "summary": "Retirer un like d'un commentaire",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["idUser", "idCommentaire"],
+                "properties": {
+                  "idUser": { "type": "integer", "example": 1 },
+                  "idCommentaire": { "type": "integer", "example": 3 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Like retiré" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/pro/verify": {
+      "post": {
+        "tags": ["Professionnel"],
+        "summary": "Vérifier un professionnel de santé via le RPPS",
+        "description": "Interroge l'open data data.gouv.fr pour vérifier qu'un professionnel existe avec ce nom et ce SIRET",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VerifyPro" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Professionnel vérifié avec succès",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Champs manquants",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "404": {
+            "description": "Professionnel non trouvé dans le RPPS",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/pro/upgrade/{id}": {
+      "put": {
+        "tags": ["Professionnel"],
+        "summary": "Passer un compte utilisateur en compte professionnel",
+        "description": "Re-vérifie le professionnel côté serveur puis met à jour le typeRole en 'pro'",
+        "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VerifyPro" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Compte passé en professionnel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" },
+                    "user": { "$ref": "#/components/schemas/User" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Champs manquants",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": {
+            "description": "Professionnel non trouvé dans le RPPS",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
       }
     }
   },
   "components": {
+    "parameters": {
+      "IdPath": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      },
+      "IdUserPath": {
+        "name": "idUser",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      },
+      "IdVideoPath": {
+        "name": "idVideo",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      },
+      "IdCommentairePath": {
+        "name": "idCommentaire",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      }
+    },
+    "responses": {
+      "Forbidden": {
+        "description": "Token invalide ou manquant",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "Erreur interne du serveur",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      }
+    },
     "schemas": {
       "User": {
         "type": "object",
         "properties": {
-          "idUser": {
-            "type": "integer",
-            "example": 1
-          },
-          "pseudo": {
-            "type": "string",
-            "example": "pseudo"
-          },
-          "nom": {
-            "type": "string",
-            "example": "nom"
-          },
-          "prenom": {
-            "type": "string",
-            "example": "prenom"
-          },
-          "email": {
-            "type": "string",
-            "example": "xxx@example.com"
-          },
-          "dateNaissance": {
-            "type": "string",
-            "format": "date"
-          },
-          "typeRole": {
-            "type": "string",
-            "example": "user"
-          },
-          "bio": {
-            "type": "string",
-            "example": "Ma bio"
-          },
-          "pdp": {
-            "type": "string",
-            "example": "https://example.com/avatar.jpg"
-          },
-          "dateCreation": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-04-07T15:30:00Z"
-          },
-          "suivi": {
-            "type": "integer",
-            "example": 0
-          }
+          "idUser": { "type": "integer", "example": 1 },
+          "pseudo": { "type": "string", "example": "pseudo" },
+          "nom": { "type": "string", "example": "Dupont" },
+          "prenom": { "type": "string", "example": "Jean" },
+          "email": { "type": "string", "example": "jean@example.com" },
+          "dateNaissance": { "type": "string", "format": "date" },
+          "typeRole": { "type": "string", "example": "user", "enum": ["user", "pro"] },
+          "bio": { "type": "string", "example": "Ma bio" },
+          "pdp": { "type": "string", "example": "https://example.com/avatar.jpg" },
+          "dateCreation": { "type": "string", "format": "date-time" },
+          "suivi": { "type": "integer", "example": 0 }
         }
       },
       "CreateUser": {
-        "required": [
-          "email",
-          "password"
-        ],
         "type": "object",
+        "required": ["email", "password"],
         "properties": {
-          "nom": {
-            "type": "string",
-            "example": "nom"
-          },
-          "prenom": {
-            "type": "string",
-            "example": "prenom"
-          },
-          "email": {
-            "type": "string",
-            "example": "xxx@example.com"
-          },
-          "password": {
-            "type": "string",
-            "example": "******"
-          },
-          "dateNaissance": {
-            "type": "string",
-            "format": "date"
-          }
+          "nom": { "type": "string", "example": "Dupont" },
+          "prenom": { "type": "string", "example": "Jean" },
+          "email": { "type": "string", "example": "jean@example.com" },
+          "password": { "type": "string", "example": "******" },
+          "date": { "type": "string", "format": "date", "example": "1990-01-01" }
         }
       },
       "Session": {
-        "required": [
-          "password",
-          "email"
-        ],
         "type": "object",
+        "required": ["email", "password"],
         "properties": {
-          "email": {
-            "type": "string",
-            "example": "lilia@example.com"
-          },
-          "password": {
-            "type": "string",
-            "example": "monpassword"
-          }
+          "email": { "type": "string", "example": "jean@example.com" },
+          "password": { "type": "string", "example": "monpassword" }
         }
       },
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
-          "token": {
-            "type": "string"
-          }
+          "message": { "type": "string" },
+          "token": { "type": "string" }
+        }
+      },
+      "Video": {
+        "type": "object",
+        "properties": {
+          "idVideo": { "type": "integer", "example": 1 },
+          "titre": { "type": "string", "example": "Ma vidéo" },
+          "urlVideo": { "type": "string", "example": "https://example.com/video.mp4" },
+          "datePublication": { "type": "string", "format": "date-time" },
+          "nbVues": { "type": "integer", "example": 0 },
+          "statutModeration": { "type": "integer", "example": 0 },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "idUser": { "type": "integer", "example": 1 }
+        }
+      },
+      "CreateVideo": {
+        "type": "object",
+        "required": ["titre", "urlVideo", "idUser"],
+        "properties": {
+          "titre": { "type": "string", "example": "Ma vidéo" },
+          "urlVideo": { "type": "string", "example": "https://example.com/video.mp4" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "idUser": { "type": "integer", "example": 1 }
+        }
+      },
+      "Commentaire": {
+        "type": "object",
+        "properties": {
+          "idCommentaire": { "type": "integer", "example": 1 },
+          "contenuCommentaire": { "type": "string", "example": "Super vidéo !" },
+          "datePost": { "type": "string", "format": "date-time" },
+          "idVideo": { "type": "integer", "example": 1 },
+          "idUser": { "type": "integer", "example": 1 }
+        }
+      },
+      "CreateCommentaire": {
+        "type": "object",
+        "required": ["contenuCommentaire", "idVideo", "idUser"],
+        "properties": {
+          "contenuCommentaire": { "type": "string", "example": "Super vidéo !" },
+          "idVideo": { "type": "integer", "example": 1 },
+          "idUser": { "type": "integer", "example": 1 }
+        }
+      },
+      "Like": {
+        "type": "object",
+        "properties": {
+          "idLike": { "type": "integer", "example": 1 },
+          "idUser": { "type": "integer", "example": 1 },
+          "idVideo": { "type": "integer", "example": 1, "nullable": true },
+          "idCommentaire": { "type": "integer", "example": null, "nullable": true }
+        }
+      },
+      "CreateLike": {
+        "type": "object",
+        "required": ["idUser"],
+        "properties": {
+          "idUser": { "type": "integer", "example": 1 },
+          "idVideo": { "type": "integer", "example": 1, "nullable": true },
+          "idCommentaire": { "type": "integer", "example": null, "nullable": true }
+        }
+      },
+      "VerifyPro": {
+        "type": "object",
+        "required": ["nom", "siret"],
+        "properties": {
+          "nom": { "type": "string", "example": "DOUBLIEZ" },
+          "siret": { "type": "string", "example": "49779500500030" }
+        }
+      },
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" }
         }
       },
       "Error": {
         "type": "object",
         "properties": {
-          "error": {
-            "type": "string"
-          }
+          "error": { "type": "string" }
         }
       }
     },
     "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
       "cookieAuth": {
         "type": "apiKey",
         "name": "access_token",
         "in": "cookie"
-      },
-      "password": {
-        "type": "oauth2",
-        "flows": {
-          "password": {
-            "tokenUrl": "http://localhost:3000/api/session",
-            "scopes": {
-              "write": "allows modifying resources",
-              "read": "allows reading resources"
-            }
-          }
-        }
       }
     }
   }

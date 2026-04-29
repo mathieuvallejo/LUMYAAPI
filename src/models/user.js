@@ -47,6 +47,10 @@ insert: async function (data) {
     const user = await this.selectById(id);
     await pool.query('DELETE FROM utilisateur WHERE idUser = ?', [id]);
     return user;
+  }, 
+  upgradeToProRole: async function (id) {
+    await pool.query("UPDATE utilisateur SET typeRole = 'pro' WHERE idUser = ?", [id]);
+    return this.selectById(id);
   }
 };
 
