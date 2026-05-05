@@ -6,6 +6,8 @@ import commentaireRouter from './commentaire.js';
 import likeRouter from './likes.js';
 import docRouter from './doc.js';
 import proRouter from './pro.js';
+import humeurRouter from './humeur.js';
+import prefererRouter from './preferer.js';
 
 const router = Router();
 
@@ -16,5 +18,7 @@ router.use('/commentaire', commentaireRouter);
 router.use('/likes', likeRouter);
  router.use('/doc', docRouter);
  router.use('/pro', proRouter);
+ router.use('/humeur', humeurRouter);
+ router.use('/preferer', prefererRouter);
 
 export default router;

@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS utilisateur (
   prenom         VARCHAR(100),
   bio            TEXT,
   pdp            VARCHAR(255),
-  dateCreation   DATETIME DEFAULT NOW() ,
+  dateCreation   DATETIME DEFAULT CURRENT_TIMESTAMP ,
   suivi          INT,
   PRIMARY KEY (idUser),
   CHECK (dateNaissance <= DATE_SUB(dateCreation, INTERVAL 13 YEAR))
@@ -47,7 +47,7 @@ CREATE TABLE commentaire (
   PRIMARY KEY (idCommentaire),
   idCommentaire      INT NOT NULL AUTO_INCREMENT,
   contenuCommentaire TEXT,
-  datePost           DATETIME DEFAULT NOW(),
+  datePost           DATETIME DEFAULT CURRENT_TIMESTAMP,
   idVideo            INT,
   idUser             INT,
   FOREIGN KEY (idVideo) REFERENCES video(idVideo),
@@ -57,8 +57,8 @@ CREATE TABLE commentaire (
 CREATE TABLE humeur (
   PRIMARY KEY (idHumeur),
   idHumeur  INT NOT NULL AUTO_INCREMENT,
-  dateSuivi DATETIME,
-  humeurs   INT,
+  dateSuivi DATETIME DEFAULT CURRENT_TIMESTAMP,
+  humeurs   ENUM('joie', 'tristesse', 'colere', 'anxiete', 'stresse', 'fatigue'),
   idUser    INT,
   FOREIGN KEY (idUser) REFERENCES utilisateur(idUser)
 );
@@ -104,4 +104,11 @@ CREATE TABLE traiter (
   idVideo INT NOT NULL,
   FOREIGN KEY (idTheme) REFERENCES theme(idTheme),
   FOREIGN KEY (idVideo) REFERENCES video(idVideo)
+);
+CREATE TABLE preferer (
+  idUser  INT NOT NULL,
+  idTheme INT NOT NULL,
+  PRIMARY KEY (idUser, idTheme),
+  FOREIGN KEY (idUser)  REFERENCES utilisateur(idUser),
+  FOREIGN KEY (idTheme) REFERENCES theme(idTheme)
 );
