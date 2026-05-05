@@ -1,4 +1,4 @@
-const OPENDATA_API_URL = 'https://tabular-api.data.gouv.fr/api/resources/fffda7e9-0ea2-4c35-bba0-4496f3af935d/data/';
+const RPPS_API_URL = 'https://tabular-api.data.gouv.fr/api/resources/fffda7e9-0ea2-4c35-bba0-4496f3af935d/data/';
 
 async function verifierProfessionnel(siret, nom) {
   const params = new URLSearchParams({
@@ -6,10 +6,10 @@ async function verifierProfessionnel(siret, nom) {
     "Nom d'exercice__exact": nom,
   });
 
-  const response = await fetch(`${OPENDATA_API_URL}?${params.toString()}`);
+  const response = await fetch(`${RPPS_API_URL}?${params.toString()}`);
 
   if (!response.ok) {
-    throw new Error(`Erreur open data : ${response.status}`);
+    throw new Error(`Erreur open data RPPS : ${response.status}`);
   }
 
   const json = await response.json();
