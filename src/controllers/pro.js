@@ -1,6 +1,7 @@
 import { verifierProfessionnel } from '../services/opendata.js';
 import userModel from '../models/user.js';
 
+// POST /api/pro/verify
 async function verifyPro(req, res) {
   try {
     const { nom, siret } = req.body;
@@ -21,6 +22,7 @@ async function verifyPro(req, res) {
   }
 }
 
+// PUT /api/pro/upgrade/:id
 async function upgradeToPro(req, res) {
   try {
     const { nom, siret } = req.body;
