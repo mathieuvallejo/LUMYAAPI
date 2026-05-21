@@ -1,4 +1,4 @@
-import  model  from '../models/video.js';
+import model from '../models/video.js';
 
 async function getAll(req, res) {
   try {
@@ -32,6 +32,9 @@ async function getByUser(req, res) {
 async function create(req, res) {
   try {
     const data = req.body;
+    if (req.file) {
+      data.urlVideo = `/uploads/videos/${req.file.filename}`;
+    }
     const result = await model.insert(data);
     res.status(201).json(result);
   } catch (err) {
