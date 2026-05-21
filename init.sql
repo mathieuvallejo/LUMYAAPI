@@ -3,7 +3,7 @@
 CREATE TABLE IF NOT EXISTS utilisateur (
   idUser         INT NOT NULL AUTO_INCREMENT,
   pseudo         VARCHAR(100),
-  email          VARCHAR(150),
+  email          VARCHAR(150) UNIQUE,
   motDePasseHash VARCHAR(255),
   dateNaissance  DATE,
   typeRole       VARCHAR(20),
