@@ -26,18 +26,28 @@ insert: async function (data) {
 },
 
   update: async function (id, data) {
+    const columnMap = {
+      nom: 'nom',
+      prenom: 'prenom',
+      email: 'email',
+      password: 'motDePasseHash',
+      date: 'dateNaissance',
+      role: 'typeRole',
+    };
+
     const fields = [];
     const values = [];
-    
+
     Object.keys(data).forEach(key => {
-      if (key !== 'id' && key !== 'createdAt') {
-        fields.push(`${key} = ?`);
+      const col = columnMap[key];
+      if (col) {
+        fields.push(`${col} = ?`);
         values.push(data[key]);
       }
     });
-    
+
     if (fields.length === 0) return this.selectById(id);
-    
+
     values.push(id);
     await pool.query(`UPDATE utilisateur SET ${fields.join(', ')} WHERE idUser = ?`, values);
     return this.selectById(id);
