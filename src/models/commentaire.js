@@ -48,11 +48,13 @@ const Commentaire = {
     return this.selectById(id);
   },
 
-  remove: async function (id) {
-    const commentaire = await this.selectById(id);
-    await pool.query('DELETE FROM commentaire WHERE idCommentaire = ?', [id]);
-    return commentaire;
-  }
+ remove: async function (id) {
+  const commentaire = await this.selectById(id);
+  await pool.query('DELETE FROM likes WHERE idCommentaire = ?', [id]);
+  await pool.query('DELETE FROM commentaire WHERE idCommentaire = ?', [id]);
+  return commentaire;
+}
+
 };
 
 export default Commentaire;

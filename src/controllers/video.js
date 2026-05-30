@@ -1,4 +1,5 @@
 import model from '../models/video.js';
+import Preferer from '../models/preferer.js';
 
 async function getAll(req, res) {
   try {
@@ -73,4 +74,22 @@ async function addView(req, res) {
   }
 }
 
-export { getAll, getOne, getByUser, create, edit, remove, addView };
+async function getFeed(req, res) {
+  try {
+    const idUser = req.user.idUser;
+    const preferences = await Preferer.selectByUser(idUser);
+    const themeIds = preferences.map(p => p.idTheme);
+
+    if (themeIds.length === 0) {
+      const result = await model.selectAll();
+      return res.status(200).json(result);
+    }
+
+    const result = await model.selectByThemes(themeIds);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export { getAll, getOne, getByUser, getFeed, create, edit, remove, addView };

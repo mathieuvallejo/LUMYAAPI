@@ -8,6 +8,8 @@ import docRouter from "./doc.js";
 import proRouter from "./pro.js";
 import humeurRouter from "./humeur.js";
 import prefererRouter from "./preferer.js";
+import themeRouter from "./theme.js";
+import traiterRouter from "./traiter.js";
 
 const router = Router();
 
@@ -20,5 +22,7 @@ router.use("/doc", docRouter);
 router.use("/pro", proRouter);
 router.use("/humeur", humeurRouter);
 router.use("/preferer", prefererRouter);
+router.use("/themes", themeRouter);
+router.use("/traiter", traiterRouter);
 
 export default router;

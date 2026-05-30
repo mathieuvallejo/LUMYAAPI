@@ -33,6 +33,9 @@ insert: async function (data) {
       password: 'motDePasseHash',
       date: 'dateNaissance',
       role: 'typeRole',
+      pseudo: 'pseudo',
+      bio: 'bio',
+      pdp: 'pdp',
     };
 
     const fields = [];

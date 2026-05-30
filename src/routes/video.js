@@ -6,6 +6,7 @@ import upload from '../middleware/upload.js';
 const router = Router();
 
 router.get('/', middleware.authByToken, videosCtrl.getAll);
+router.get('/feed', middleware.authByToken, videosCtrl.getFeed);
 router.get('/:id', middleware.authByToken, videosCtrl.getOne);
 router.get('/user/:idUser',middleware.authByToken, videosCtrl.getByUser);
 router.post('/',middleware.authByToken, upload.single('video'), videosCtrl.create);

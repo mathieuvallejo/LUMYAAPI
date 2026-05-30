@@ -52,6 +52,22 @@ const Video = {
   incrementVues: async function (id) {
     await pool.query('UPDATE video SET nbVues = nbVues + 1 WHERE idVideo = ?', [id]);
     return this.selectById(id);
+  },
+
+  selectByThemes: async function (themeIds) {
+    if (!themeIds || themeIds.length === 0) return [];
+    const placeholders = themeIds.map(() => '?').join(', ');
+    const [rows] = await pool.query(
+      `SELECT DISTINCT v.*, GROUP_CONCAT(t.libelle) AS themes
+       FROM video v
+       JOIN traiter tr ON tr.idVideo = v.idVideo
+       JOIN theme t ON t.idTheme = tr.idTheme
+       WHERE tr.idTheme IN (${placeholders})
+       GROUP BY v.idVideo
+       ORDER BY v.datePublication DESC`,
+      themeIds
+    );
+    return rows;
   }
 };
 

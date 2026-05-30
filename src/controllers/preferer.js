@@ -20,7 +20,8 @@ async function getByTheme(req, res) {
 
 async function create(req, res) {
   try {
-    const { idUser, idTheme } = req.body;
+    const idUser = req.user.idUser;
+    const { idTheme } = req.body;
     const result = await model.insert(idUser, idTheme);
     res.status(201).json(result);
   } catch (err) {

@@ -3,7 +3,7 @@ import bcrypt from'bcrypt';
 
 const saltRounds = 12;
 
-async function getAll(req, res) {
+async function getAll(_req, res) {
   try {
     const result = await model.selectAll();
     res.status(200).json(result);
@@ -59,4 +59,17 @@ async function remove(req, res) {
   }
 }
 
-export { getAll, getOne, create, edit, remove };
+async function uploadPdp(req, res) {
+  try {
+    const id = req.params.id;
+    if (!req.file) return res.status(400).json({ error: 'Aucun fichier reçu' });
+    const ext = req.file.originalname.split('.').pop().toLowerCase();
+    const photoUrl = `/uploads/img/pdp-${id}.${ext}`;
+    const result = await model.update(id, { pdp: photoUrl });
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export { getAll, getOne, create, edit, remove, uploadPdp };
