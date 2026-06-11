@@ -100,7 +100,7 @@ npm run dev
 
 L'API est accessible sur : `http://localhost:<PORT>` (ex. `http://localhost:3000`)
 
-La documentation Swagger est disponible sur : `http://localhost:<PORT>/api-docs`
+La documentation Swagger est disponible sur : `http://localhost:3000/api/doc/api-docs/#/`
 
 ---
 
