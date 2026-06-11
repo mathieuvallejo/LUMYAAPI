@@ -16,6 +16,14 @@ const Humeur = {
     return rows;
   },
 
+  selectRecentByUser: async function (idUser) {
+    const [rows] = await pool.query(
+      'SELECT * FROM humeur WHERE idUser = ? AND dateSuivi >= DATE_SUB(NOW(), INTERVAL 1 HOUR) ORDER BY dateSuivi DESC LIMIT 1',
+      [idUser]
+    );
+    return rows[0] || null;
+  },
+
   insert: async function (data) {
     const { humeurs, idUser } = data;
     const [result] = await pool.query(

@@ -30,6 +30,12 @@ async function getByUser(req, res) {
 
 async function create(req, res) {
   try {
+    const { humeurs, idUser } = req.body;
+    const recent = await model.selectRecentByUser(idUser);
+    if (recent) {
+      const result = await model.update(recent.idHumeur, { humeurs });
+      return res.status(200).json(result);
+    }
     const result = await model.insert(req.body);
     res.status(201).json(result);
   } catch (err) {
